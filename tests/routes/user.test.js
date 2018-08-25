@@ -9,7 +9,7 @@ const URL_FRAGMENT = '/users';
 beforeEach(populateUsers);
 afterEach(clearUsers);
 
-// GET users
+// GET all users
 describe('GET users', () => {
     test('should return full list of users if authenticated', (done) => {
         request(app)
