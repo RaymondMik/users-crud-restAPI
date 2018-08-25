@@ -5,7 +5,17 @@ const {mongoose} = require('../../database/mongoose.js');
 const {User} = require('../../database/models/user.js');
 const {authenticate} = require('../../middlewares/authenticate');
 
-// GET me user
+// GET users
+router.get('/', authenticate, async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.send(users);
+    } catch (e) {
+        res.sendStatus(404);
+    }
+});
+
+// GET single user
 router.get('/me', authenticate, (req, res) => {
     res.send(req.user);
 });
@@ -35,7 +45,6 @@ router.post('/login', (req, res) => {
     }
     
     User.findByCredentials(loginRequest).then((user) => {
-        console.log(77, req.body.password, user);
         return user.generateAuthToken().then((token) => {
             res.header('x-auth', token).send(user);
         });

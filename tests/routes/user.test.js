@@ -9,6 +9,30 @@ const URL_FRAGMENT = '/users';
 beforeEach(populateUsers);
 afterEach(clearUsers);
 
+// GET users
+describe('GET users', () => {
+    test('should return full list of users if authenticated', (done) => {
+        request(app)
+            .get(`${URL_FRAGMENT}`)
+            .set('x-auth', users[0].tokens[0].token)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.length).toBe(2);
+            })
+            .end(done);
+    });
+
+    test('should get 401 error if user is not authenticated', (done) => {
+        request(app)
+            .get(`${URL_FRAGMENT}`)
+            .expect(401)
+            .expect((res) => {
+                expect(res.body).toEqual({});
+            })
+            .end(done);
+    });
+});
+
 // GET me user
 describe('GET users/me', () => {
     test('should return user if authenticated', (done) => {
@@ -123,7 +147,6 @@ describe('POST /users/login', () => {
             })
             .expect(401)
             .expect((res) => {
-                console.log(88, res.body.email);
                 expect(res.headers['x-auth']).toBeFalsy();
             })
             .end(async(err) => {
