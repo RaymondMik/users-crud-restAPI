@@ -5,7 +5,7 @@ const {mongoose} = require('../../database/mongoose.js');
 const {User} = require('../../database/models/user.js');
 const {authenticate} = require('../../middlewares/authenticate');
 
-// GET users
+// GET all users
 router.get('/', authenticate, async (req, res) => {
     try {
         const users = await User.find({});
