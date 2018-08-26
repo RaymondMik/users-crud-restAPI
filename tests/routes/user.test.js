@@ -164,10 +164,10 @@ describe('POST /users/login', () => {
 });
 
 // POST sign out (logout user)
-describe('POST users/me/logout', () => {
+describe('POST users/logout/:id', () => {
     test('should remove auth token on logout', (done) => {
         request(app)
-            .post(`${URL_FRAGMENT}/me/logout`)
+            .post(`${URL_FRAGMENT}/logout/${users[0]._id}`)
             .set('x-auth', users[0].tokens[0].token)
             .expect(200)
             .end((err) => {
@@ -175,6 +175,25 @@ describe('POST users/me/logout', () => {
 
                 User.findById(users[0]._id).then((user) => {
                     expect(user.tokens.length).toBe(0);
+                    done();
+                }).catch((err) => done(err));
+            })
+
+    });
+});
+
+// DELETE user
+describe('DELETE users/delete/:id', () => {
+    test('should remove user', (done) => {
+        request(app)
+            .post(`${URL_FRAGMENT}/delete/${users[1]._id}`)
+            .set('x-auth', users[0].tokens[0].token)
+            .expect(200)
+            .end((err) => {
+                if (err) return done(err);
+
+                User.findById(users[1]._id).then((user) => {
+                    expect(user).toBeFalsy();
                     done();
                 }).catch((err) => done(err));
             })

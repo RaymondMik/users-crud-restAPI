@@ -13,6 +13,8 @@ const authenticate = (req, res, next) => {
 
     req.user = user;
     req.token = token;
+    req.isAdmin = user.type === 'admin' ? true : false;
+
     next();
   }).catch((e) => {
     res.status(401).send('User is not authenticated');
