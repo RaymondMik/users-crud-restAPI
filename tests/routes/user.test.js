@@ -34,10 +34,10 @@ describe('GET users', () => {
 });
 
 // GET me user
-describe('GET users/me', () => {
+describe('GET users/:id', () => {
     test('should return user if authenticated', (done) => {
         request(app)
-            .get(`${URL_FRAGMENT}/me`)
+            .get(`${URL_FRAGMENT}/${users[0]._id}`)
             .set('x-auth', users[0].tokens[0].token)
             .expect(200)
             .expect((res) => {
@@ -59,15 +59,15 @@ describe('GET users/me', () => {
 });
 
 // POST sign up (create user)
-describe('POST /users', () => {
+describe('POST /users/add', () => {
     test('should create a new user', (done) => {
         const email = 'hello12@example.com';
         const password = 'hello123_09';
-        const type = 'user';
+        const role = 'user';
 
         request(app)
-            .post(URL_FRAGMENT)
-            .send({email, password, type})
+            .post(`${URL_FRAGMENT}/add`)
+            .send({email, password, role})
             .expect(200)
             .expect((res) => {
                 expect(res.headers['x-auth']).toBeTruthy();
@@ -92,7 +92,7 @@ describe('POST /users', () => {
         const type = 'client';
 
         request(app)
-            .post(URL_FRAGMENT)
+            .post(`${URL_FRAGMENT}/add`)
             .send({email, password, type})
             .expect(400)
             .end(done);
@@ -104,7 +104,7 @@ describe('POST /users', () => {
         const type = 'admin';
 
         request(app)
-            .post(URL_FRAGMENT)
+            .post(`${URL_FRAGMENT}/add`)
             .send({email, password, type})
             .expect(400)
             .end(done);
@@ -184,9 +184,9 @@ describe('POST users/logout/:id', () => {
 
 // DELETE user
 describe('DELETE users/delete/:id', () => {
-    test('should remove user', (done) => {
+    test('if logged in as admin should remove user', (done) => {
         request(app)
-            .post(`${URL_FRAGMENT}/delete/${users[1]._id}`)
+            .delete(`${URL_FRAGMENT}/delete/${users[1]._id}`)
             .set('x-auth', users[0].tokens[0].token)
             .expect(200)
             .end((err) => {
@@ -197,6 +197,13 @@ describe('DELETE users/delete/:id', () => {
                     done();
                 }).catch((err) => done(err));
             })
+    });
 
+    test('if logged in as user should NOT remove user', (done) => {
+        request(app)
+            .delete(`${URL_FRAGMENT}/delete/${users[1]._id}`)
+            .set('x-auth', users[2].tokens[0].token)
+            .expect(401)
+            .end(done);
     });
 });

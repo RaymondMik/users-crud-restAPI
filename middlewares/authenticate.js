@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
 
     req.user = user;
     req.token = token;
-    req.isAdmin = user.type === 'admin' ? true : false;
+    req.isAdmin = user.role === 'admin' ? true : false;
 
     next();
   }).catch((e) => {

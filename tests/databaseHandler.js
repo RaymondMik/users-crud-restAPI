@@ -4,14 +4,15 @@ const {User} = require('./../database/models/user.js');
 
 const userIdOne = new ObjectID();
 const userIdTwo = new ObjectID();
+const userIdThree = new ObjectID();
 
 // we simulate one authenticated and one non authenticated user
 const users = [
     {
         _id: userIdOne,
-        email: 'ciaone1@example.com',
+        email: 'ciaone1@example.como',
         password: 'userOnePass',
-        type: 'admin',
+        role: 'admin',
         tokens: [
             {
                 access: 'auth',
@@ -23,9 +24,21 @@ const users = [
         _id: userIdTwo,
         email: 'ciaone2@example.com',
         password: 'userTwoPass',
-        type: 'user',
+        role: 'user',
         tokens: []
-    }
+    },
+    {
+        _id: userIdThree,
+        email: 'ciaone3@example.como',
+        password: 'userThreePass',
+        role: 'user',
+        tokens: [
+            {
+                access: 'auth',
+                token: jwt.sign({_id: userIdThree, access: 'auth'}, process.env.JWT_SECRET).toString()
+            }
+        ]
+    },
 ];
 
 const populateUsers = async(done) => {

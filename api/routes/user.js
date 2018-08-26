@@ -5,6 +5,8 @@ const {mongoose} = require('../../database/mongoose.js');
 const {User} = require('../../database/models/user.js');
 const {authenticate} = require('../../middlewares/authenticate');
 
+// TODO if new routes will be added, consider to add accesscontrol to implement Role-Based Access Control. 
+
 // GET all users
 router.get('/', authenticate, async(req, res) => {
     try {
@@ -25,7 +27,7 @@ router.post('/add', async(req, res) => {
     const newUser = new User({
         email: req.body.email,
         password: req.body.password,
-        type: req.body.type
+        role: req.body.role
     });
 
     try {
@@ -64,7 +66,7 @@ router.post('/logout/:id', authenticate, async (req, res) => {
 // DELETE user
 router.delete('/delete/:id', authenticate, async (req, res) => {
     // Make this route accessible to Admins only
-    if (!req.isAdmin) return res.status(400).send('This operation is restricted to Admins!');
+    if (!req.isAdmin) return res.status(401).send('This operation is restricted to Admins!');
 
     User.findByIdAndRemove(req.params.id, (err, user) => {
         // Handle errors
