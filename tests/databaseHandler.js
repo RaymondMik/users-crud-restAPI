@@ -10,6 +10,7 @@ const userIdThree = new ObjectID();
 const users = [
     {
         _id: userIdOne,
+        userName: 'TeddyBoy1',
         email: 'ciaone1@example.como',
         password: 'userOnePass',
         role: 'admin',
@@ -22,6 +23,7 @@ const users = [
     },
     {
         _id: userIdTwo,
+        userName: 'TeddyBoy2',
         email: 'ciaone2@example.com',
         password: 'userTwoPass',
         role: 'user',
@@ -29,6 +31,7 @@ const users = [
     },
     {
         _id: userIdThree,
+        userName: 'TeddyBoy3',
         email: 'ciaone3@example.como',
         password: 'userThreePass',
         role: 'user',

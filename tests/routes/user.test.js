@@ -73,13 +73,14 @@ describe('GET users/:id', () => {
 // POST sign up (create user)
 describe('POST /users/add', () => {
     test('should create a new user', (done) => {
+        const userName = 'HelloTestUser';
         const email = 'hello12@example.com';
         const password = 'hello123_09';
         const role = 'user';
 
         request(app)
             .post(`${URL_FRAGMENT}/add`)
-            .send({email, password, role})
+            .send({userName, email, password, role})
             .expect(200)
             .expect((res) => {
                 expect(res.headers['x-auth']).toBeTruthy();
@@ -99,25 +100,27 @@ describe('POST /users/add', () => {
     });
 
     test('should return a validation error if req is invalid', (done) => {
+        const userName = 'HelloTestUser22';
         const email = 'hello@example';
         const password = 'hello90';
         const type = 'client';
 
         request(app)
             .post(`${URL_FRAGMENT}/add`)
-            .send({email, password, type})
+            .send({userName, email, password, type})
             .expect(400)
             .end(done);
     });
 
     test('should return an error if email is already in use', (done) => {
+        const userName = 'HelloTestUser22999';
         const email = users[0].email;
         const password = 'hello777009';
         const type = 'admin';
 
         request(app)
             .post(`${URL_FRAGMENT}/add`)
-            .send({email, password, type})
+            .send({userName, email, password, type})
             .expect(400)
             .end(done);
     });

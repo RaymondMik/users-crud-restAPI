@@ -10,10 +10,12 @@ const {UserSchema} = require('../schemas/user.js');
  */
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
-  const email = userObject.email;
   const _id = userObject._id;
+  const userName = userObject.userName;
+  const email = userObject.email;
+  const role = userObject.role;
 
-  return {email, _id};
+  return {_id, userName, email, role};
 };
 
 /**
