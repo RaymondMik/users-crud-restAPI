@@ -9,6 +9,8 @@ const {authenticate} = require('../../middlewares/authenticate');
 
 // GET all users
 router.get('/', authenticate, async(req, res) => {
+    // Make this route accessible to Admins only
+    if (!req.isAdmin) return res.status(401).send('This operation is restricted to Admins!');
     try {
         const users = await User.find({});
         res.send(users);
@@ -40,17 +42,19 @@ router.post('/add', async(req, res) => {
 });
 
 // POST sign in (log in existing user)
-router.post('/login', (req, res) => {
+router.post('/login', async(req, res) => {
     const loginRequest = {
         email: req.body.email,
         password: req.body.password
     }
     
-    User.findByCredentials(loginRequest).then((user) => {
-        return user.generateAuthToken().then((token) => {
-            res.header('x-auth', token).send(user);
-        });
-    }).catch((err) => res.sendStatus(401));
+    try {
+        const user = await User.findByCredentials(loginRequest);
+        const token = await user.generateAuthToken();
+        res.header('x-auth', token).send(user);
+    } catch(e) {
+        res.sendStatus(401)
+    }
 });
 
 // POST sign out (log out user)

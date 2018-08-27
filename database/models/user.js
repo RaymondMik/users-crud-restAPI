@@ -103,6 +103,8 @@ UserSchema.pre('save', function(next) {
   }
 });
 
-const User = mongoose.model('user', UserSchema);
+// in test environment do not initialize indexes -> https://stackoverflow.com/questions/50687592/jest-and-mongoose-jest-has-detected-opened-handles
+const skipInit = process.env.NODE_ENV === "test";
+const User = mongoose.model('user', UserSchema, skipInit);
 
 module.exports.User = User;

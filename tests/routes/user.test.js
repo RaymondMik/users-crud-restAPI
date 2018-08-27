@@ -1,5 +1,6 @@
 const request = require('supertest');
 const {ObjectID} = require('mongodb');
+const mongoose = require('mongoose');
 const {app} = require('../../app.js');
 const {User} = require('../../database/models/user.js');
 const {populateUsers, clearUsers, users} = require('../databaseHandler.js');
@@ -25,6 +26,17 @@ describe('GET users', () => {
     test('should get 401 error if user is not authenticated', (done) => {
         request(app)
             .get(`${URL_FRAGMENT}`)
+            .expect(401)
+            .expect((res) => {
+                expect(res.body).toEqual({});
+            })
+            .end(done);
+    });
+
+    test('should get 401 error if user has note admin role', (done) => {
+        request(app)
+            .get(`${URL_FRAGMENT}`)
+            .set('x-auth', users[2].tokens[0].token)
             .expect(401)
             .expect((res) => {
                 expect(res.body).toEqual({});
