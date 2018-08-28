@@ -73,27 +73,29 @@ describe('GET users/:id', () => {
 // POST sign up (create user)
 describe('POST /users/add', () => {
     test('should create a new user', (done) => {
-        const userName = 'HelloTestUser';
-        const email = 'hello12@example.com';
-        const password = 'hello123_09';
-        const role = 'user';
-
+        const body = {
+            userName: 'HelloTestUser',
+            email: 'hello12@example.com',
+            password: 'hello123_09',
+            role: 'user'
+        };
+    
         request(app)
             .post(`${URL_FRAGMENT}/add`)
-            .send({userName, email, password, role})
+            .send(body)
             .expect(200)
             .expect((res) => {
                 expect(res.headers['x-auth']).toBeTruthy();
                 expect(res.body._id).toBeTruthy();
-                expect(res.body.email).toBe(email);
+                expect(res.body.email).toBe(body.email);
             })
             .end( (err) => {
                 if (err) return done(err);
 
-                User.findOne({email}).then((user) => {
+                User.findOne({email: body.email}).then((user) => {
                     expect(user).toBeTruthy();
                     // check if password has been hashed!
-                    expect(user.password).not.toBe(password);
+                    expect(user.password).not.toBe(body.password);
                     done();
                 }).catch((e) => done(e)); 
             });
@@ -197,6 +199,52 @@ describe('POST users/logout/:id', () => {
     });
 });
 
+// PATCH update user
+describe('PATCH users/update/:id', () => {
+    test('should update value correctly', (done) => {
+        const newUserName = 'NewTestUserName898';
+        request(app)
+            .patch(`${URL_FRAGMENT}/update/${users[1]._id}`)
+            .send({
+                userName: newUserName
+            })
+            .set('x-auth', users[0].tokens[0].token)
+            .expect(200)
+            .end((err) => {
+                if (err) return done(err);
+
+                User.findById(users[1]._id).then((user) => {
+                    expect(user.userName).toBe(newUserName);
+                    done();
+                }).catch((err) => done(err));
+            });
+    });
+
+    test('admin should be capable to update everyones data', (done) => {
+        const newUserName = 'NewTestUserName898';
+        request(app)
+            .patch(`${URL_FRAGMENT}/update/${users[1]._id}`)
+            .send({
+                userName: newUserName
+            })
+            .set('x-auth', users[0].tokens[0].token)
+            .expect(200)
+            .end(done);
+    });
+
+    test('user should be capable to update only their own data', (done) => {
+        const newUserName = 'NewTestUserName898';
+        request(app)
+            .patch(`${URL_FRAGMENT}/update/${users[1]._id}`)
+            .send({
+                userName: newUserName
+            })
+            .set('x-auth', users[2].tokens[0].token)
+            .expect(401)
+            .end(done);
+    });
+});
+
 // DELETE user
 describe('DELETE users/delete/:id', () => {
     test('if logged in as admin should remove user', (done) => {
@@ -219,6 +267,6 @@ describe('DELETE users/delete/:id', () => {
             .delete(`${URL_FRAGMENT}/delete/${users[1]._id}`)
             .set('x-auth', users[2].tokens[0].token)
             .expect(401)
-            .end(done);
+            .end(() => {done()});
     });
 });

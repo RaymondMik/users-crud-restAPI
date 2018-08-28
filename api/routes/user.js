@@ -47,7 +47,7 @@ router.post('/add', async(req, res) => {
     try {
         await newUser.save();
         const token = newUser.generateAuthToken();
-        res.header('x-auth', token).send(newUser);
+        res.set('x-auth', token).send(newUser);
     } catch(e) {
         res.status(400).send(e.message);
     }
@@ -63,9 +63,9 @@ router.post('/login', async(req, res) => {
     try {
         const user = await User.findByCredentials(loginRequest);
         const token = await user.generateAuthToken();
-        res.header('x-auth', token).send(user);
+        return res.set('x-auth', token).send(user);
     } catch(e) {
-        res.status(401).send(e.message);
+        return res.status(401).send(e.message);
     }
 });
 
@@ -75,7 +75,7 @@ router.post('/logout/:id', authenticate, async (req, res) => {
         await req.user.removeToken(req.token);
         res.status(200).send('Logged out');
     } catch(e) {
-        res.status(401).send(e.message);;
+        res.status(401).send(e.message);
     }
 });
 
@@ -107,7 +107,7 @@ router.patch('/update/:id', authenticate, async (req, res) => {
     
         return res.send({updatedUser});
     } catch(e) {
-        res.status(500).send(e.message);
+        return res.status(500).send(e.message);;
     }
 });
 
