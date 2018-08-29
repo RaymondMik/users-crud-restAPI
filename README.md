@@ -15,12 +15,12 @@
             }   
         </code>
     </li>
-    <li>Create an application in <a href="https://devcenter.heroku.com/articles/git" target="blank">Heroku</a></li>
-    <li>Install mongolab addon on Heroku</li>
+    <li>Create an application on <a href="https://devcenter.heroku.com/articles/git" target="blank">Heroku</a></li>
+    <li>Install mongolab addon to your Heroku app in order to use MongoDB</li>
     <li>Add heroku configuration variable <code>config:set JWT_SECRET=your_jwt_secret_key</code></li>
     <li>Deploy to heroku</li>
 </ol>
 </p>
 
 <h3>Testing</h3>
-<p>Routes are fully tested using <a href="https://github.com/visionmedia/supertest" target="blank">Jest</a> and <a href="https://github.com/visionmedia/supertest" target="blank">Supertest</a> super-agent driven library.</p>
+<p><code>users</code> route is fully tested using <a href="https://github.com/visionmedia/supertest" target="blank">Jest</a> and <a href="https://github.com/visionmedia/supertest" target="blank">Supertest</a> super-agent driven library.</p>
