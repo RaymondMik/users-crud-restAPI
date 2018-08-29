@@ -26,22 +26,11 @@ router.get('/:id', authenticate, (req, res) => {
 
 // POST sign up (create new user)
 router.post('/add', async(req, res) => {
-    const body = {
+    const newUser = new User({
         userName: req.body.userName, 
         email: req.body.email, 
         password: req.body.password,
         role: req.body.role
-    };
-
-    Object.entries(body).forEach((value) => {
-        if (typeof value[1] !== 'string') return res.status(400).send(`${value[0]} should be a string`);
-    });
-
-    const newUser = new User({
-        userName: body.userName,
-        email: body.email,
-        password: body.password,
-        role: body.role
     });
 
     try {

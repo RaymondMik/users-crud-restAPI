@@ -1,4 +1,4 @@
-const {User} = require('../database/models/user');
+ const {User} = require('../database/models/user');
 
 /**
  * Authenticate user by token
@@ -6,8 +6,8 @@ const {User} = require('../database/models/user');
  * @param {*} res 
  * @param {*} next 
  */
-const authenticate = (req, res, next) => {
-  const token = req.header('x-auth');
+ authenticate = (req, res, next) => {
+   token = req.header('x-auth');
   User.findByToken(token).then((user) => {
     if (!user) return Promise.reject();
 

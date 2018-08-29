@@ -1,5 +1,5 @@
 const request = require('supertest');
-const {ObjectID} = require('mongodb');
+//const {ObjectID} = require('mongodb');
 const mongoose = require('mongoose');
 const {app} = require('../../app.js');
 const {User} = require('../../database/models/user.js');
@@ -8,7 +8,6 @@ const {populateUsers, clearUsers, users} = require('../databaseHandler.js');
 const URL_FRAGMENT = '/users';
 
 beforeEach(populateUsers);
-afterEach(clearUsers);
 
 // GET all users
 describe('GET users', () => {
@@ -45,7 +44,7 @@ describe('GET users', () => {
     });
 });
 
-// GET me user
+// GET single user
 describe('GET users/:id', () => {
     test('should return user if authenticated', (done) => {
         request(app)
@@ -61,7 +60,7 @@ describe('GET users/:id', () => {
 
     test('should get 401 error if user is not authenticated', (done) => {
         request(app)
-            .get(`${URL_FRAGMENT}/me`)
+            .get(`${URL_FRAGMENT}/${users[0]._id}`)
             .expect(401)
             .expect((res) => {
                 expect(res.body).toEqual({});
@@ -89,40 +88,49 @@ describe('POST /users/add', () => {
                 expect(res.body._id).toBeTruthy();
                 expect(res.body.email).toBe(body.email);
             })
-            .end( (err) => {
+            .end( async(err) => {
+                
                 if (err) return done(err);
-
-                User.findOne({email: body.email}).then((user) => {
+                
+                try {
+                    const user = await User.findOne({email: body.email});
+                    // check if user has been added
                     expect(user).toBeTruthy();
                     // check if password has been hashed!
                     expect(user.password).not.toBe(body.password);
                     done();
-                }).catch((e) => done(e)); 
+                } catch(e) {
+                    done(e)
+                }
             });
     });
 
     test('should return a validation error if req is invalid', (done) => {
-        const userName = 'HelloTestUser22';
-        const email = 'hello@example';
-        const password = 'hello90';
-        const type = 'client';
+        const body = {
+            userName: 'HelloTestUser22',
+            email: 'hello12@example',
+            password: 9898,
+            role: 'user'
+        };
 
         request(app)
             .post(`${URL_FRAGMENT}/add`)
-            .send({userName, email, password, type})
+            .send(body)
             .expect(400)
             .end(done);
     });
 
     test('should return an error if email is already in use', (done) => {
-        const userName = 'HelloTestUser22999';
-        const email = users[0].email;
-        const password = 'hello777009';
-        const type = 'admin';
+        const body = {
+            userName: 'HelloTestUser22',
+            email: users[0].email,
+            password: 'helloWorld!',
+            role: 'user'
+        };
 
         request(app)
             .post(`${URL_FRAGMENT}/add`)
-            .send({userName, email, password, type})
+            .send(body)
             .expect(400)
             .end(done);
     });
