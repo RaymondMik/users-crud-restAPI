@@ -29,7 +29,9 @@ app.use((req, res, next) => {
 });
 
 // Base route
-app.use('/', baseRoutes);
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+});
 
 // Users route
 app.use('/users', userRoutes);
