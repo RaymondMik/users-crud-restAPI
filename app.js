@@ -3,7 +3,6 @@ require('./config');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const baseRoutes = require('./api/routes/base');
 const userRoutes = require('./api/routes/user');
 
 // App init
@@ -26,11 +25,6 @@ app.use((req, res, next) => {
         return res.status(200).json({});
     }
     next();
-});
-
-// Base route
-app.get('/', (req, res) => {
-  res.send('Hello World!')
 });
 
 // Users route
