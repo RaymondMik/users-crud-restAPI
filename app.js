@@ -3,6 +3,7 @@ require('./config');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const baseRoutes = require('./api/routes/base');
 const userRoutes = require('./api/routes/user');
 
 // App init
@@ -27,7 +28,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
+// Base route
+app.use('/', baseRoutes);
+
+// Users route
 app.use('/users', userRoutes);
 
 // Handle non valid HTTP request
