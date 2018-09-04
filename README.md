@@ -1,18 +1,19 @@
 <h2>Users CRUD Restful API</h2>
+<h3>- This document it is not yet completed! -</h3>
 <p>A simple REST API built with Node.js, Express, Mongoose and MongoDB to manage user creation and authentication with JSON web tokens.</p>
 
 <h3>How to use it</h3>
 <p>Clone the repo to your machine and run <code>npm install</code>. Make sure you have Node.js and MongoDB installed on your machine.
-Create a <code>config.json</code> file in the root of the project. It should contain the following configuration information:
-        <code>
-            {
-                "test": {
-                    "PORT": 3000,
-                    "MONGODB_URI": "mongodb://127.0.0.1:27017/your_db_name",
-                    "JWT_SECRET": "your_jwt_secret_key"
-                }
-            }   
-        </code>
+Create a <code>config.json</code> file in the root of the project. Your configuration object should be structured as follows:
+<pre>
+    {
+        "test": {
+            "PORT": 3000,
+            "MONGODB_URI": "mongodb://127.0.0.1:27017/your_db_name",
+            "JWT_SECRET": "your_jwt_secret_key"
+        }
+    }   
+</pre>
 Finally, run <code>npm run start-server</code> to run the server with Nodemon.</p>
 
 <h3>Deploying to Heroku</h3>
