@@ -17,7 +17,7 @@
 
     next();
   }).catch((e) => {
-    res.status(401).send('User is not authenticated');
+    res.status(401).send('You are not authenticated');
   });
 };
 

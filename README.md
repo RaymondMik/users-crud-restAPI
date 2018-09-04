@@ -3,8 +3,7 @@
 
 <h3>How to use it</h3>
 <p>Clone the repo to your machine and run <code>npm install</code>. Make sure you have Node.js and MongoDB installed on your machine.
-<ol>
-    <li>Create a <code>config.json</code> file in the root of the project. It should contain the following configuration information:
+Create a <code>config.json</code> file in the root of the project. It should contain the following configuration information:
         <code>
             {
                 "test": {
@@ -14,13 +13,16 @@
                 }
             }   
         </code>
-    </li>
+Finally, run <code>npm run start-server</code> to run the server with Nodemon.</p>
+
+<h3>Deploying to Heroku</h3>
+<p>This project is already set up to be deployed to Heroku. In order to do so you should:</p>
+<ol>
     <li>Create an application on <a href="https://devcenter.heroku.com/articles/git" target="blank">Heroku</a></li>
     <li>Install mongolab addon to your Heroku app in order to use MongoDB</li>
-    <li>Add heroku configuration variable <code>config:set JWT_SECRET=your_jwt_secret_key</code></li>
+    <li>Add a Heroku configuration variable for your JWT_SECRET code <code>config:set JWT_SECRET=your_jwt_secret_key</code></li>
     <li>Deploy to Heroku</li>
 </ol>
-</p>
 
 <h3>Testing</h3>
-<p><code>users</code> route is fully tested using <a href="https://github.com/visionmedia/supertest" target="blank">Jest</a> and <a href="https://github.com/visionmedia/supertest" target="blank">Supertest</a> super-agent driven library.</p>
+<p><code>users</code> route is fully tested using <a href="https://github.com/visionmedia/supertest" target="blank">Jest</a> and <a href="https://github.com/visionmedia/supertest" target="blank">Supertest</a> super-agent driven library. Run <code>npm run test</code> to run the Jest test suite.</p>
