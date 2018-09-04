@@ -10,7 +10,7 @@ const userIdThree = new ObjectID();
 const users = [
     {
         _id: userIdOne,
-        userName: 'TeddyBoy1',
+        userName: 'TeddyBear1',
         email: 'heyholetsgo1@example.como',
         password: 'userOnePass',
         role: 'admin',
@@ -23,7 +23,7 @@ const users = [
     },
     {
         _id: userIdTwo,
-        userName: 'TeddyBoy2',
+        userName: 'TeddyBear2',
         email: 'heyholetsgo2@example.com',
         password: 'userTwoPass',
         role: 'user',
@@ -31,7 +31,7 @@ const users = [
     },
     {
         _id: userIdThree,
-        userName: 'TeddyBoy3',
+        userName: 'TeddyBear3',
         email: 'heyholetsgo3@example.como',
         password: 'userThreePass',
         role: 'user',
@@ -48,6 +48,7 @@ const populateUsers = async(done) => {
     await User.remove({});
     await new User(users[0]).save();
     await new User(users[1]).save();
+    await new User(users[2]).save();
     done();
 };
 

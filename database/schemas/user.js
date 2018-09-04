@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+mongoose.Promise = global.Promise;
+
 const UserSchema = mongoose.Schema({
     userName: {
         type: String,

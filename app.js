@@ -3,7 +3,7 @@ require('./config');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const userRoutes = require('./api/routes/user');
+const usersRoute = require('./api/routes/users');
 
 // App init
 const app = express();
@@ -33,7 +33,7 @@ app.get('/', function (req, res) {
 })
 
 // Users route
-app.use('/users', userRoutes);
+app.use('/users', usersRoute);
 
 // Handle non valid HTTP request
 app.use((req, res, next) => {
