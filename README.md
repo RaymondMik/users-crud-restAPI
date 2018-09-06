@@ -69,6 +69,7 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
 }
 </pre>
     </li>
+    <li>
         <h4>Logout User (Sign Out)</h4> 
         <code>POST: /users/logout/:id</code>
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/logout/5b86fde0ccb8100014444fe2</code></p>
@@ -76,14 +77,14 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
         <p><code>key: Content-Type, value: application/json</code></p>
         <p><code>key: x-auth, value: authentication_token</code></p>
     </li>
-    </li>
+    <li>
         <h4>Delete User</h4> 
         <code>DELETE: /users/delete/:id</code>
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/delete/5b86e62f7f06ee00144a8070</code></p>
         <p><b>headers:</b> <code>key: x-auth, value: authentication_token</code></p>
         <p><b>description:</b> return JSON with deletion confirmation. Authentication as 'Admin'is required.</p>
     </li>
-    /li>
+    <li>
         <h4>Update User</h4> 
         <code>PATCH: /users/update/5b85a0935c3f960014686a52</code>
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/update/5b85a0935c3f960014686a52</code></p>
