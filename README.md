@@ -20,24 +20,94 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
 <p>Live example available here: <a href="https://users-crud-api.herokuapp.com/" target="blank">https://users-crud-api.herokuapp.com/</a></p>
 <ul>
     <li>
-        <h4>Root endpoint</h4> 
+        <h4>Root</h4> 
         <code>GET: /</code>
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/</code></p>
         <p><b>description:</b> returns a 'Hello world' message, no authentication required.</p>
     </li>
     <li>
-        <h4>Users endpoint</h4> 
+        <h4>List Users</h4> 
         <code>GET: /users</code>
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users</code></p>
         <p><b>headers:</b> <code>key: x-auth, value: authentication_token</code></p>
-        <p><b>description:</b> JSON file with all users. Authentication as 'Admin'is required.</p>
+        <p><b>description:</b> returns JSON object with all users. Authentication as 'Admin'is required.</p>
     </li>
     <li>
-        <h4>User endpoint</h4> 
+        <h4>Get User</h4> 
         <code>GET: /users/:id</code>
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/5b882d6b1e17a40014239236</code></p>
+        <p><b>example headers:</b> <code>key: x-auth, value: authentication_token</code></p>
+        <p><b>description:</b> returns JSON object with user data. Admins can access whatever user data, while users can only access their own data.</p>
+    </li>
+    <li>
+        <h4>Add User (Sign Up)</h4> 
+        <code>POST: /users/add</code>
+        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/add</code></p>
+        <p><b>headers:</b> <code>key: Content-Type, value: application/json</code></p>
+        <p><b>example body:</b> 
+        <pre>
+            {
+                "userName": "Test User",
+                "email": "john.doe@example.com",
+                "password": "insecure-password",
+                "role": "user"
+            }
+        </pre>
+        </p>
+        <p><b>description:</b> JSON with all users. Authentication as 'Admin'is required.</p>
+    </li>
+    <li>
+        <h4>Login User (Sign In)</h4> 
+        <code>POST: /users/login</code>
+        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/login</code></p>
+        <p><b>headers:</b> </p>
+            <p><code>key: Content-Type, value: application/json</code></p>
+        <p><b>example body:</b> 
+        <pre>
+            {
+                "email": "john.doe@example.com",
+                "password": "insecure-password"
+            }
+        </pre>
+        </p>
+    </li>
+        <h4>Logout User (Sign Out)</h4> 
+        <code>POST: /users/logout/:id</code>
+        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/logout/5b86fde0ccb8100014444fe2</code></p>
+        <p><b>headers:</b></p>
+        <p><code>key: Content-Type, value: application/json</code></p>
+        <p><code>key: x-auth, value: authentication_token</code></p>
+        <p><b>example body:</b> 
+        <pre>
+            {
+                "email": "john.doe@example.com",
+                "password": "insecure-password"
+            }
+        </pre>
+        </p>
+    </li>
+    </li>
+        <h4>Delete User</h4> 
+        <code>DELETE: /users/delete/:id</code>
+        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/delete/5b86e62f7f06ee00144a8070</code></p>
         <p><b>headers:</b> <code>key: x-auth, value: authentication_token</code></p>
-        <p><b>description:</b> JSON file with all users. Authentication as 'Admin'is required.</p>
+        <p><b>description:</b> return JSON with deletion confirmation. Authentication as 'Admin'is required.</p>
+    </li>
+    /li>
+        <h4>Update User</h4> 
+        <code>PATCH: /users/update/5b85a0935c3f960014686a52</code>
+        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/update/5b85a0935c3f960014686a52</code></p>
+        <p><b>headers:</b></p>
+        <p><code>key: Content-Type, value: application/json</code></p>
+        <p><code>key: x-auth, value: authentication_token</code></p>
+        <p><b>example body:</b> 
+        <pre>
+            {
+                "password": "insecure-password2"
+            }
+        </pre>
+        </p>
+        <p><b>description:</b> returns JSON with update confirmation. Admins can update whatever user data, while user can only update his/her own data.</p>
     </li>
 </ul>
 
