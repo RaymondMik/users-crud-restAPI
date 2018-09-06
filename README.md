@@ -44,16 +44,15 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
         <code>POST: /users/add</code>
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/add</code></p>
         <p><b>headers:</b> <code>key: Content-Type, value: application/json</code></p>
-        <p><b>example body:</b> 
-        <pre>
-            {
-                "userName": "Test User",
-                "email": "john.doe@example.com",
-                "password": "insecure-password",
-                "role": "user"
-            }
-        </pre>
-        </p>
+        <p><b>example body:</b></p>
+<pre>
+{
+    "userName": "Test User",
+    "email": "john.doe@example.com",
+    "password": "insecure-password",
+    "role": "user"
+}
+</pre>
         <p><b>description:</b> JSON with all users. Authentication as 'Admin'is required.</p>
     </li>
     <li>
@@ -62,14 +61,13 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
         <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/login</code></p>
         <p><b>headers:</b> </p>
             <p><code>key: Content-Type, value: application/json</code></p>
-        <p><b>example body:</b> 
-        <pre>
-            {
-                "email": "john.doe@example.com",
-                "password": "insecure-password"
-            }
-        </pre>
-        </p>
+        <p><b>example body:</b></p>
+<pre>
+{
+    "email": "john.doe@example.com",
+    "password": "insecure-password"
+}
+</pre>
     </li>
         <h4>Logout User (Sign Out)</h4> 
         <code>POST: /users/logout/:id</code>
@@ -77,14 +75,13 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
         <p><b>headers:</b></p>
         <p><code>key: Content-Type, value: application/json</code></p>
         <p><code>key: x-auth, value: authentication_token</code></p>
-        <p><b>example body:</b> 
-        <pre>
-            {
-                "email": "john.doe@example.com",
-                "password": "insecure-password"
-            }
-        </pre>
-        </p>
+        <p><b>example body:</b></p>
+<pre>
+{
+    "email": "john.doe@example.com",
+    "password": "insecure-password"
+}
+</pre>
     </li>
     </li>
         <h4>Delete User</h4> 
@@ -100,13 +97,12 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
         <p><b>headers:</b></p>
         <p><code>key: Content-Type, value: application/json</code></p>
         <p><code>key: x-auth, value: authentication_token</code></p>
-        <p><b>example body:</b> 
-        <pre>
-            {
-                "password": "insecure-password2"
-            }
-        </pre>
-        </p>
+        <p><b>example body:</b></p>
+<pre>
+{
+    "password": "insecure-password2"
+}
+</pre>
         <p><b>description:</b> returns JSON with update confirmation. Admins can update whatever user data, while user can only update his/her own data.</p>
     </li>
 </ul>
