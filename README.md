@@ -75,13 +75,6 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
         <p><b>headers:</b></p>
         <p><code>key: Content-Type, value: application/json</code></p>
         <p><code>key: x-auth, value: authentication_token</code></p>
-        <p><b>example body:</b></p>
-<pre>
-{
-    "email": "john.doe@example.com",
-    "password": "insecure-password"
-}
-</pre>
     </li>
     </li>
         <h4>Delete User</h4> 
