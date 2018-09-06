@@ -21,6 +21,9 @@ router.get('/', authenticate, async(req, res) => {
 
 // GET single user
 router.get('/:id', authenticate, (req, res) => {
+    // Admins can update everyone's data, users only their own data
+    if (!req.isAdmin && req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
+
     res.send(req.user);
 });
 
@@ -73,11 +76,11 @@ router.patch('/update/:id', authenticate, async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) return res.status(400).send(`The ID: ${req.params.id} is not valid`);
 
      // Admins can update everyone's data, users only their own data
-     if (!req.isAdmin && req.params.id !== req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
+     if (!req.isAdmin && req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
 
     const body = {
-        userName: req.body.userName, 
-        // email: req.body.email, 
+        userName: req.body.userName,
+        // email: req.body.email,
         // password: req.body.password
     };
 

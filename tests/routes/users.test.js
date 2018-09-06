@@ -74,6 +74,8 @@ describe('GET users/:id', () => {
             })
             .end(done);
     });
+
+    // TODO add tests with different user roles.
 });
 
 // POST sign up (create user)
