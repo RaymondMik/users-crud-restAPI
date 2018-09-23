@@ -1,5 +1,4 @@
 <h2>Users CRUD Restful API</h2>
-<h3>- Document in progress... -</h3>
 <p>A simple REST API built with Node.js, Express, Mongoose and MongoDB to manage user creation and authentication with JSON web tokens.</p>
 
 <h3>How to use it</h3>
