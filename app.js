@@ -27,9 +27,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// Base route
+// Root route
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.json({message: 'Hello World!'})
 })
 
 // Users route
