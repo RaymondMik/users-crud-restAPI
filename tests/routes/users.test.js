@@ -184,11 +184,11 @@ describe('POST /users/login', () => {
     });
 });
 
-// POST sign out (logout user)
-describe('POST users/logout/:id', () => {
+// POST sign user out
+describe('POST users/sign-out/:id', () => {
     test('should remove auth token on logout', (done) => {
         request(app)
-            .post(`${URL_FRAGMENT}/logout/${users[0]._id}`)
+            .post(`${URL_FRAGMENT}/sign-out/${users[0]._id}`)
             .set('x-auth', users[0].tokens[0].token)
             .expect(200)
             .end((err) => {

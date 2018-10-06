@@ -61,11 +61,11 @@ router.post('/login', async(req, res) => {
     }
 });
 
-// POST sign out (log out user)
-router.post('/logout/:id', authenticate, async (req, res) => {
+// POST sign user out
+router.post('/sign-out/:id', authenticate, async (req, res) => {
     try {
         await req.user.removeToken(req.token);
-        res.status(200).send('Logged out');
+        res.status(200).send({message: 'Signed out successfully'});
     } catch(e) {
         res.status(401).send(e.message);
     }

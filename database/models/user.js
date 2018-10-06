@@ -40,7 +40,7 @@ UserSchema.methods.generateAuthToken = function () {
  * @param {*} token 
  */
 UserSchema.methods.removeToken = function (token) {
-  return this.update({
+  return this.updateOne({
     $pull: {
       tokens: {token}
     }

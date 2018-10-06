@@ -18,11 +18,13 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header(
         'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+        'x-auth, Content-Type, Origin, X-Requested-With,  Accept, Authorization'
     );
+    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('Access-Control-Expose-Headers', 'x-auth');
     if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({});
+        res.header('Access-Control-Allow-Methods', 'POST, PUT, PATCH, DELETE');
+        res.status(200);
     }
     next();
 });
