@@ -28,7 +28,7 @@ router.get('/:id', authenticate, (req, res) => {
 });
 
 // POST sign up (create new user)
-router.post('/add', async(req, res) => {
+router.post('/sign-up', async(req, res) => {
     const newUser = new User({
         userName: req.body.userName, 
         email: req.body.email, 
@@ -38,15 +38,15 @@ router.post('/add', async(req, res) => {
     
     try {
         await newUser.save();
-        const token = newUser.generateAuthToken();
-        res.set('x-auth', token).send(newUser);
+        // email confirmation should be implemented
+        res.status(200).send({message: 'User created successfully'});
     } catch(e) {
         res.status(400).send(e.message);
     }
 });
 
 // POST sign in (log in existing user)
-router.post('/login', async(req, res) => {
+router.post('/sign-in', async(req, res) => {
     const loginRequest = {
         email: req.body.email,
         password: req.body.password

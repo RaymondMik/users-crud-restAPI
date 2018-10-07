@@ -79,7 +79,7 @@ describe('GET users/:id', () => {
 });
 
 // POST sign up (create user)
-describe('POST /users/add', () => {
+describe('POST /users/sign-up', () => {
     test('should create a new user', (done) => {
         const body = {
             userName: 'HelloTestUser',
@@ -89,16 +89,13 @@ describe('POST /users/add', () => {
         };
     
         request(app)
-            .post(`${URL_FRAGMENT}/add`)
+            .post(`${URL_FRAGMENT}/sign-up`)
             .send(body)
             .expect(200)
             .expect((res) => {
-                expect(res.headers['x-auth']).toBeTruthy();
-                expect(res.body._id).toBeTruthy();
-                expect(res.body.email).toBe(body.email);
+                expect(res.body).toEqual({message: 'User created successfully'});
             })
             .end( async(err) => {
-                
                 if (err) return done(err);
                 
                 try {
@@ -123,7 +120,7 @@ describe('POST /users/add', () => {
         };
 
         request(app)
-            .post(`${URL_FRAGMENT}/add`)
+            .post(`${URL_FRAGMENT}/sign-up`)
             .send(body)
             .expect(400)
             .end(done);
@@ -132,11 +129,11 @@ describe('POST /users/add', () => {
     // TODO add test to check attempt with userName or email already in DB
 });
 
-// POST sign in (login user)
-describe('POST /users/login', () => {
+// POST sign in
+describe('POST /users/sign-in', () => {
     test('should login an existing user', (done) => {          
         request(app)
-            .post(`${URL_FRAGMENT}/login`)
+            .post(`${URL_FRAGMENT}/sign-in`)
             .send({
                 email: users[1].email,
                 password: users[1].password
@@ -161,7 +158,7 @@ describe('POST /users/login', () => {
     
     test('should reject invalid login', (done) => {
         request(app)
-            .post(`${URL_FRAGMENT}/login`)
+            .post(`${URL_FRAGMENT}/sign-in`)
             .send({
                 email: users[1].email,
                 password: 'blablbla'
