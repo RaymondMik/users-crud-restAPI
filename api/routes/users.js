@@ -75,15 +75,20 @@ router.post('/sign-out/:id', authenticate, async (req, res) => {
 router.patch('/update/:id', authenticate, async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) return res.status(400).send(`The ID: ${req.params.id} is not valid`);
 
+    // TO DO
+    // ADD POSSIBILITY TO MODIFY ROLE, IF ADMIN
+    // ADD POSSIBILITY TO MODIFY PASSWORD WITH EMAIL CONFIRMATION SYSTEM
      // Admins can update everyone's data, users only their own data
      if (!req.isAdmin && req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
 
-    const body = {
-        userName: req.body.userName,
-        // email: req.body.email,
-        // password: req.body.password
-    };
+    const body = {};
 
+    if (req.body.userName && typeof req.body.userName === 'string') body.userName = req.body.userName;
+    if (req.body.email && typeof req.body.email === 'string') body.email = req.body.email;
+    if (req.isAdmin) {
+        if (req.body.role && typeof req.body.role === 'string') body.role = req.body.role;
+    }
+    
     Object.entries(body).forEach((value) => {
         if (typeof value[1] !== 'string') return res.status(400).send(`${value[0]} passed should be a string`);
     });
