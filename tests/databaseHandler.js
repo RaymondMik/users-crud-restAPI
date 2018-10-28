@@ -11,7 +11,7 @@ const users = [
     {
         _id: userIdOne,
         userName: 'TeddyBear1',
-        email: 'heyholetsgo1@example.como',
+        email: 'heyholetsgo1@example.com',
         password: 'userOnePass',
         role: 'admin',
         tokens: [
@@ -32,7 +32,7 @@ const users = [
     {
         _id: userIdThree,
         userName: 'TeddyBear3',
-        email: 'heyholetsgo3@example.como',
+        email: 'heyholetsgo3@example.com',
         password: 'userThreePass',
         role: 'user',
         tokens: [

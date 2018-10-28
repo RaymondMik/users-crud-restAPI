@@ -20,11 +20,16 @@ router.get('/', authenticate, async(req, res) => {
 });
 
 // GET single user
-router.get('/:id', authenticate, (req, res) => {
+router.get('/:id', authenticate, async(req, res) => {
     // Admins can update everyone's data, users only their own data
     if (!req.isAdmin && req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
 
-    res.send(req.user);
+    try {
+        const user = await User.findById(req.params.id);
+        res.send(user);
+    } catch (e) {
+        res.status(404);
+    }
 });
 
 // POST sign up (create new user)
@@ -75,12 +80,11 @@ router.post('/sign-out/:id', authenticate, async (req, res) => {
 router.patch('/update/:id', authenticate, async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) return res.status(400).send(`The ID: ${req.params.id} is not valid`);
 
-    // TO DO
-    // ADD POSSIBILITY TO MODIFY ROLE, IF ADMIN
+    // TODO
     // ADD POSSIBILITY TO MODIFY PASSWORD WITH EMAIL CONFIRMATION SYSTEM
-     // Admins can update everyone's data, users only their own data
-     if (!req.isAdmin && req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
-
+    // Admins can update everyone's data, users only their own data
+    if (!req.isAdmin && req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
+    
     const body = {};
 
     if (req.body.userName && typeof req.body.userName === 'string') body.userName = req.body.userName;
@@ -89,14 +93,35 @@ router.patch('/update/:id', authenticate, async (req, res) => {
         if (req.body.role && typeof req.body.role === 'string') body.role = req.body.role;
     }
     
-    Object.entries(body).forEach((value) => {
-        if (typeof value[1] !== 'string') return res.status(400).send(`${value[0]} passed should be a string`);
+    Object.values(body).forEach((value) => {
+        if (typeof value !== 'string') return res.status(400).send(`${value[0]} passed should be a string`);
     });
 
     try {
         const updatedUser = await User.findOneAndUpdate(
             {_id: req.params.id},
             {$set: body},
+            {new: true, runValidators: true}
+        );
+
+        if (!updatedUser) return res.status(404).send('User not found');
+    
+        return res.send({updatedUser});
+    } catch(e) {
+        return res.status(500).send(e.message);;
+    }
+});
+
+// PATCH update user status
+router.patch('/status/:id', authenticate, async (req, res) => {
+    // Admins can delete everyone's account, users only their own
+    if (!req.isAdmin) return res.status(401).send('You are not authorized to perform this operation.');
+    if (typeof req.body.isActive !== 'boolean') return res.status(400).send(`Value passed should be a boolean`)
+
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: {isActive: req.body.isActive}},
             {new: true, runValidators: true}
         );
 
@@ -124,7 +149,6 @@ router.delete('/delete/:id', authenticate, async (req, res) => {
         };
         return res.status(200).send(response);
     });
-
 });
 
 module.exports = router;

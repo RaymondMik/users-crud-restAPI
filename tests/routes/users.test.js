@@ -3,7 +3,7 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const {app} = require('../../app.js');
 const {User} = require('../../database/models/user.js');
-const {populateUsers, clearUsers, users} = require('../databaseHandler.js');
+const {populateUsers, users} = require('../databaseHandler.js');
 
 const URL_FRAGMENT = '/users';
 
@@ -205,7 +205,7 @@ describe('PATCH users/update/:id', () => {
     test('should update value correctly', (done) => {
         const newUserName = 'NewTestUserName898';
         request(app)
-            .patch(`${URL_FRAGMENT}/update/${users[1]._id}`)
+            .patch(`${URL_FRAGMENT}/update/${users[0]._id}`)
             .send({
                 userName: newUserName
             })
@@ -214,7 +214,7 @@ describe('PATCH users/update/:id', () => {
             .end((err) => {
                 if (err) return done(err);
 
-                User.findById(users[1]._id).then((user) => {
+                User.findById(users[0]._id).then((user) => {
                     expect(user.userName).toBe(newUserName);
                     done();
                 }).catch((err) => done(err));
@@ -233,7 +233,7 @@ describe('PATCH users/update/:id', () => {
             .end(done);
     });
 
-    test('user should be capable to update only their own data', (done) => {
+    test('user should not be capable to update data of another user', (done) => {
         const newUserName = 'NewTestUserName898';
         request(app)
             .patch(`${URL_FRAGMENT}/update/${users[1]._id}`)
@@ -243,6 +243,28 @@ describe('PATCH users/update/:id', () => {
             .set('x-auth', users[2].tokens[0].token)
             .expect(401)
             .end(done);
+    });
+});
+
+// PATCH update user status
+describe('PATCH users/status/:id', () => {
+    test('should update user status correctly', (done) => {
+        const newUserName = 'NewTestUserName898';
+        request(app)
+            .patch(`${URL_FRAGMENT}/status/${users[1]._id}`)
+            .send({
+                isActive: false
+            })
+            .set('x-auth', users[0].tokens[0].token)
+            .expect(200)
+            .end((err) => {
+                if (err) return done(err);
+
+                User.findById(users[1]._id).then((user) => {
+                    expect(user.isActive).toBe(false);
+                    done();
+                }).catch((err) => done(err));
+            });
     });
 });
 

@@ -14,8 +14,9 @@ UserSchema.methods.toJSON = function () {
   const userName = userObject.userName;
   const email = userObject.email;
   const role = userObject.role;
+  const isActive = userObject.isActive;
 
-  return {_id, userName, email, role};
+  return {_id, userName, email, role, isActive};
 };
 
 /**
