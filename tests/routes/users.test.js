@@ -221,18 +221,6 @@ describe('PATCH users/update/:id', () => {
             });
     });
 
-    test('admin should be capable to update everyones data', (done) => {
-        const newUserName = 'NewTestUserName898';
-        request(app)
-            .patch(`${URL_FRAGMENT}/update/${users[1]._id}`)
-            .send({
-                userName: newUserName
-            })
-            .set('x-auth', users[0].tokens[0].token)
-            .expect(200)
-            .end(done);
-    });
-
     test('user should not be capable to update data of another user', (done) => {
         const newUserName = 'NewTestUserName898';
         request(app)
@@ -248,7 +236,7 @@ describe('PATCH users/update/:id', () => {
 
 // PATCH update user status
 describe('PATCH users/status/:id', () => {
-    test('should update user status correctly', (done) => {
+    test('admin should be able to update users status correctly', (done) => {
         const newUserName = 'NewTestUserName898';
         request(app)
             .patch(`${URL_FRAGMENT}/status/${users[1]._id}`)

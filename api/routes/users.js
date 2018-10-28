@@ -82,8 +82,7 @@ router.patch('/update/:id', authenticate, async (req, res) => {
 
     // TODO
     // ADD POSSIBILITY TO MODIFY PASSWORD WITH EMAIL CONFIRMATION SYSTEM
-    // Admins can update everyone's data, users only their own data
-    if (!req.isAdmin && req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
+    if (req.params.id != req.user._id) return res.status(401).send('You are not authorized to perform this operation.');
     
     const body = {};
 
@@ -114,7 +113,7 @@ router.patch('/update/:id', authenticate, async (req, res) => {
 
 // PATCH update user status
 router.patch('/status/:id', authenticate, async (req, res) => {
-    // Admins can delete everyone's account, users only their own
+    // Only Admins can block a user
     if (!req.isAdmin) return res.status(401).send('You are not authorized to perform this operation.');
     if (typeof req.body.isActive !== 'boolean') return res.status(400).send(`Value passed should be a boolean`)
 
