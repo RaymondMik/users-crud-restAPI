@@ -6,7 +6,7 @@
 Create a <code>config.json</code> file in the root of the project. Your configuration object should be structured as follows:
 <pre>
     {
-        "test": {
+        "development": {
             "PORT": 3000,
             "MONGODB_URI": "mongodb://127.0.0.1:27017/your_db_name",
             "JWT_SECRET": "your_jwt_secret_key"
