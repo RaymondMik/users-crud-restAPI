@@ -1,6 +1,6 @@
-const {app} = require('../app.js');
+import { app } from '../app.js';
 
-// Set PORT for usage in both development and production with Heroku
+// Set PORT for usage in both development and in production with Heroku
 const port = process.env.PORT;
 
 app.listen(port, () => {
