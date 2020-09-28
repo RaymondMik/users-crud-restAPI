@@ -2,7 +2,7 @@
 <p>A simple REST API built with Node.js, Express, Mongoose and MongoDB to manage user creation and authentication with JSON web tokens. It supports TypeScript as well.</p>
 
 <h3>How to use it</h3>
-<p>Clone the repo to your machine and run <code>npm install</code>. Make sure you have Node.js and MongoDB installed on your machine.
+<p>Clone the repo to your machine and run <code>yarn</code>. Make sure you have Node.js and MongoDB installed on your machine.
 Create a <code>config.json</code> file in the root of the project. Your configuration object should be structured as follows:
 <pre>
     {
@@ -13,7 +13,7 @@ Create a <code>config.json</code> file in the root of the project. Your configur
         }
     }   
 </pre>
-Finally, run <code>npm run start-server</code> to run the server with Nodemon.</p>
+Finally, run <code>yarn start-server</code> to run the server with ts-node-dev.</p>
 
 <h3>Endpoints</h3>
 <p>Live example available here: <a href="https://users-crud-api.herokuapp.com/" target="blank">https://users-crud-api.herokuapp.com/</a></p>
@@ -22,7 +22,7 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
         <h4>Root</h4> 
         <pre>
         GET: /
-        example request: <code>https://users-crud-api.herokuapp.com/
+        example request: https://users-crud-api.herokuapp.com/
         description: returns a 'Hello world' message, no authentication required.
         </pre>
     </li>
