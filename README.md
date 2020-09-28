@@ -51,8 +51,8 @@ Finally, run <code>yarn start-server</code> to run the server with ts-node-dev.<
     <li>
         <h4>Add User (Sign Up)</h4> 
         <pre>
-        POST: /users/add
-        example request: https://users-crud-api.herokuapp.com/users/add
+        POST: /users/sign-up
+        example request: https://users-crud-api.herokuapp.com/users/sign-up
         headers: 
             key: Content-Type, 
             value: application/json
@@ -69,8 +69,8 @@ Finally, run <code>yarn start-server</code> to run the server with ts-node-dev.<
     <li>
         <h4>Login User (Sign In)</h4> 
         <pre>
-        POST: /users/login
-        example request: https://users-crud-api.herokuapp.com/users/login
+        POST: /users/sign-in
+        example request: https://users-crud-api.herokuapp.com/users/sign-in
         headers:
             key: Content-Type,
             value: application/json
