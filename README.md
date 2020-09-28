@@ -72,12 +72,13 @@ Finally, run <code>yarn start-server</code> to run the server with ts-node-dev.<
         POST: /users/login
         example request: https://users-crud-api.herokuapp.com/users/login
         headers:
-            key: Content-Type, value: application/json
-            example body:
-                {
-                    "email": "john.doe@example.com",
-                    "password": "insecure-password"
-                }
+            key: Content-Type,
+            value: application/json
+        example body:
+            {
+                "email": "john.doe@example.com",
+                "password": "insecure-password"
+            }
         </pre>
     </li>
     <li>
