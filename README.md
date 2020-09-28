@@ -92,25 +92,29 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
     </li>
     <li>
         <h4>Delete User</h4> 
-        <code>DELETE: /users/delete/:id</code>
-        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/delete/5b86e62f7f06ee00144a8070</code></p>
-        <p><b>headers:</b> <code>key: x-auth, value: authentication_token</code></p>
-        <p><b>description:</b> return JSON with deletion confirmation. Authentication as 'Admin'is required.</p>
+        <pre>
+        DELETE: /users/delete/:id
+        example request: https://users-crud-api.herokuapp.com/users/delete/5b86e62f7f06ee00144a8070
+        headers:
+            key: x-auth,
+            value: authentication_token
+        description: return JSON with deletion confirmation. Authentication as 'Admin'is required.
+        </pre>
     </li>
     <li>
         <h4>Update User</h4> 
-        <code>PATCH: /users/update/5b85a0935c3f960014686a52</code>
-        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users/update/5b85a0935c3f960014686a52</code></p>
-        <p><b>headers:</b></p>
-        <p><code>key: Content-Type, value: application/json</code></p>
-        <p><code>key: x-auth, value: authentication_token</code></p>
-        <p><b>example body:</b></p>
-<pre>
-{
-    "password": "insecure-password2"
-}
-</pre>
-        <p><b>description:</b> returns JSON with update confirmation. Admins can update whatever user data, while user can only update his/her own data.</p>
+        <pre>
+        PATCH: /users/update/5b85a0935c3f960014686a52
+        example request: https://users-crud-api.herokuapp.com/users/update/5b85a0935c3f960014686a52
+        headers:
+            key: Content-Type, value: application/json
+            key: x-auth, value: authentication_token
+        example body:
+            {
+                "password": "insecure-password2"
+            }
+        description: returns JSON with update confirmation. Admins can update whatever user data, while user can only update his/her own data.
+        </pre>
     </li>
 </ul>
 
