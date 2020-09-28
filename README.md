@@ -1,5 +1,5 @@
 <h2>Users CRUD Restful API</h2>
-<p>A simple REST API built with Node.js, Express, Mongoose and MongoDB to manage user creation and authentication with JSON web tokens.</p>
+<p>A simple REST API built with Node.js, Express, Mongoose and MongoDB to manage user creation and authentication with JSON web tokens. It supports TypeScript as well.</p>
 
 <h3>How to use it</h3>
 <p>Clone the repo to your machine and run <code>npm install</code>. Make sure you have Node.js and MongoDB installed on your machine.
