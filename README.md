@@ -26,10 +26,12 @@ Finally, run <code>npm run start-server</code> to run the server with Nodemon.</
     </li>
     <li>
         <h4>List Users</h4> 
-        <code>GET: /users</code>
-        <p><b>example request:</b> <code>https://users-crud-api.herokuapp.com/users</code></p>
-        <p><b>headers:</b> <code>key: x-auth, value: authentication_token</code></p>
-        <p><b>description:</b> returns JSON object with all users. Authentication as 'Admin'is required.</p>
+        <pre>
+        GET: /users
+        example request: https://users-crud-api.herokuapp.com/users
+        headers: key: x-auth, value: authentication_token
+        description: returns JSON object with all users. Authentication as 'Admin'is required.
+         </pre>
     </li>
     <li>
         <h4>Get User</h4> 
