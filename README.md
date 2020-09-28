@@ -127,4 +127,4 @@ Finally, run <code>yarn start-server</code> to run the server with ts-node-dev.<
 </ol>
 
 <h3>Testing</h3>
-<p><code>users</code> route is fully tested using <a href="https://github.com/visionmedia/supertest" target="blank">Jest</a> and <a href="https://github.com/visionmedia/supertest" target="blank">Supertest</a> super-agent driven library. Run <code>npm run test</code> to run the Jest test suite.</p>
+<p><code>users</code> route is fully tested using <a href="https://github.com/visionmedia/supertest" target="blank">Jest</a> and <a href="https://github.com/visionmedia/supertest" target="blank">Supertest</a> super-agent driven library. Run <code>yarn test</code> to run the Jest test suite.</p>
